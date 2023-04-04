@@ -1,43 +1,53 @@
-document.addEventListener('DOMContentLoaded', function() {
-    const habitForm = document.getElementById('habit-form');
-    const habitRecurrence = document.getElementById('habit-recurrence');
-    const customRecurrenceContainer = document.getElementById('custom-recurrence-container');
+// scripts.js
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.4.0/firebase-app.js';
+import { getFirestore, collection, addDoc } from 'https://www.gstatic.com/firebasejs/9.4.0/firebase-firestore.js';
 
-    // Show or hide the custom recurrence input based on the selected recurrence option
-    habitRecurrence.addEventListener('change', function() {
-        if (habitRecurrence.value === 'custom') {
-            customRecurrenceContainer.style.display = 'block';
-        } else {
-            customRecurrenceContainer.style.display = 'none';
-        }
-    });
+// Firebase Configuration
+const firebaseConfig = {
+    apiKey: "AIzaSyD4izXhmrP-vXKK3zuOzm6VjP2tUEk_jVI",
+    authDomain: "habit-hero-a0e46.firebaseapp.com",
+    projectId: "habit-hero-a0e46",
+    storageBucket: "habit-hero-a0e46.appspot.com",
+    messagingSenderId: "752138074660",
+    appId: "1:752138074660:web:509709cd48f55833eaf6b1",
+    measurementId: "G-6NKB0FQMCJ"
+};
 
-    // Handle form submission
-    habitForm.addEventListener('submit', function(event) {
-        event.preventDefault();
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const db = getFirestore();
 
-        const habitName = document.getElementById('habit-name').value;
-        const habitDescription = document.getElementById('habit-description').value;
-        const habitRecurrence = document.getElementById('habit-recurrence').value;
-        const habitCustomRecurrence = document.getElementById('habit-custom-recurrence').value;
-        const habitAttribute = document.getElementById('habit-attribute').value;
-        const habitDifficulty = document.getElementById('habit-difficulty').value; // Add this line
+// Handle form submission
+const habitForm = document.getElementById('habit-form');
+habitForm.addEventListener('submit', async function(event) {
+    event.preventDefault();
 
-        const habitData = {
-            name: habitName,
-            description: habitDescription,
-            recurrence: habitRecurrence === 'custom' ? parseInt(habitCustomRecurrence, 10) : 'daily',
-            attribute: habitAttribute,
-            difficulty: habitDifficulty,
-        };
+    // Get form data
+    const habitName = document.getElementById('habit-name').value;
+    const habitDescription = document.getElementById('habit-description').value;
+    const habitRecurrence = document.getElementById('habit-recurrence').value;
+    const habitCustomRecurrence = document.getElementById('habit-custom-recurrence').value;
+    const habitAttribute = document.getElementById('habit-attribute').value;
+    const habitDifficulty = document.getElementById('habit-difficulty').value;
 
-        // Here, you can send the habitData object to your server-side logic for further processing and storage
-        console.log(habitData);
+    // Create habit data object
+    const habitData = {
+        name: habitName,
+        description: habitDescription,
+        recurrence: habitRecurrence === 'custom' ? parseInt(habitCustomRecurrence, 10) : 'daily',
+        attribute: habitAttribute,
+        difficulty: habitDifficulty,
+    };
 
+    // Save the habit data to Firestore
+    try {
+        const docRef = await addDoc(collection(db, 'habits'), habitData);
+        console.log('Document written with ID: ', docRef.id);
         // Clear the form after successful submission
         habitForm.reset();
-
-        // Optionally, show a success message or redirect the user to another page
+        // Show success message to the user
         alert('Habit created successfully!');
-    });
+    } catch (error) {
+        console.error('Error adding document: ', error);
+    }
 });

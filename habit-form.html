@@ -6,20 +6,26 @@
     <title>Habit Creation Form</title>
     <link rel="stylesheet" href="styles.css">
 
-        <!-- Firebase Configuration -->
-        <script src="https://www.gstatic.com/firebasejs/9.4.0/firebase-app.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/9.4.0/firebase-analytics.js"></script>
-        <script>
-            const firebaseConfig = {
-              apiKey: "AIzaSyD4izXhmrP-vXKK3zuOzm6VjP2tUEk_jVI",
-              authDomain: "habit-hero-a0e46.firebaseapp.com",
-              projectId: "habit-hero-a0e46",
-              storageBucket: "habit-hero-a0e46.appspot.com",
-              messagingSenderId: "752138074660",
-              appId: "1:752138074660:web:509709cd48f55833eaf6b1",
-              measurementId: "G-6NKB0FQMCJ"
-    
-            };
+    <!-- Firebase Configuration -->
+    <script type="module">
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.4.0/firebase-app.js';
+        import { getAuth } from 'https://www.gstatic.com/firebasejs/9.4.0/firebase-auth.js';
+        import { getFirestore } from 'https://www.gstatic.com/firebasejs/9.4.0/firebase-firestore.js';
+
+        const firebaseConfig = {
+          apiKey: "AIzaSyD4izXhmrP-vXKK3zuOzm6VjP2tUEk_jVI",
+          authDomain: "habit-hero-a0e46.firebaseapp.com",
+          projectId: "habit-hero-a0e46",
+          storageBucket: "habit-hero-a0e46.appspot.com",
+          messagingSenderId: "752138074660",
+          appId: "1:752138074660:web:509709cd48f55833eaf6b1",
+          measurementId: "G-6NKB0FQMCJ"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth();
+        const db = getFirestore();
+    </script>
 </head>
 <body>
     <h1>Create a new habit</h1>
@@ -58,6 +64,6 @@
     <button type="submit">Create Habit</button>
 </form>
 
-<script src="scripts.js"></script>
+<script type="module" src="scripts.js"></script>
 </body>
 </html>
