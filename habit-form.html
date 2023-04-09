@@ -1,69 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Habit Creation Form</title>
     <link rel="stylesheet" href="styles.css">
-
-    <!-- Firebase Configuration -->
-    <script type="module">
-        import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.4.0/firebase-app.js';
-        import { getAuth } from 'https://www.gstatic.com/firebasejs/9.4.0/firebase-auth.js';
-        import { getFirestore } from 'https://www.gstatic.com/firebasejs/9.4.0/firebase-firestore.js';
-
-        const firebaseConfig = {
-          apiKey: "AIzaSyD4izXhmrP-vXKK3zuOzm6VjP2tUEk_jVI",
-          authDomain: "habit-hero-a0e46.firebaseapp.com",
-          projectId: "habit-hero-a0e46",
-          storageBucket: "habit-hero-a0e46.appspot.com",
-          messagingSenderId: "752138074660",
-          appId: "1:752138074660:web:509709cd48f55833eaf6b1",
-          measurementId: "G-6NKB0FQMCJ"
-        };
-
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth();
-        const db = getFirestore();
-    </script>
-</head>
-<body>
+  </head>
+  <body>
     <h1>Create a new habit</h1>
     <form id="habit-form">
-        <label for="habit-name">Habit name:</label>
-        <input type="text" id="habit-name" name="habit-name" required>
-        
-        <label for="habit-description">Description:</label>
-        <textarea id="habit-description" name="habit-description"></textarea>
+      <label for="habit-name">Habit name:</label>
+      <input type="text" id="habit-name" name="habit-name" required>
 
-        <label for="habit-difficulty">Difficulty:</label>
-        <select id="habit-difficulty" name="habit-difficulty">
-            <option value="easy">Easy</option>
-            <option value="normal">Normal</option>
-            <option value="hard">Hard</option>
-        </select>
+      <label for="habit-description">Description:</label>
+      <textarea id="habit-description" name="habit-description"></textarea>
 
-        
-        <label for="habit-recurrence">Recurrence:</label>
-        <select id="habit-recurrence" name="habit-recurrence">
-            <option value="daily">Daily</option>
-            <option value="custom">Custom</option>
-        </select>
-            <div id="custom-recurrence-container" style="display: none;">
+      <label for="habit-difficulty">Difficulty:</label>
+      <select id="habit-difficulty" name="habit-difficulty">
+        <option value="easy">Easy</option>
+        <option value="normal">Normal</option>
+        <option value="hard">Hard</option>
+      </select>
+
+
+      <label for="habit-recurrence">Recurrence:</label>
+      <select id="habit-recurrence" name="habit-recurrence">
+        <option value="daily">Daily</option>
+        <option value="custom">Custom</option>
+      </select>
+      <div id="custom-recurrence-container" style="display: none;">
         <label for="habit-custom-recurrence">Every (days):</label>
         <input type="number" id="habit-custom-recurrence" name="habit-custom-recurrence" min="1" value="1">
-    </div>
+      </div>
 
-    <label for="habit-attribute">Attribute:</label>
-    <select id="habit-attribute" name="habit-attribute">
+      <label for="habit-attribute">Attribute:</label>
+      <select id="habit-attribute" name="habit-attribute">
         <option value="strength">Strength</option>
         <option value="intelligence">Intelligence</option>
         <!-- Add more attribute options here -->
-    </select>
+      </select>
 
-    <button type="submit">Create Habit</button>
-</form>
+      <button type="submit">Create Habit</button>
+    </form>
 
-<script type="module" src="scripts.js"></script>
-</body>
+    <script type="module" src="scripts.js"></script>
+  </body>
 </html>
